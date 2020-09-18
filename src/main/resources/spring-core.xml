@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       https://www.springframework.org/schema/aop/spring-aop.xsd
+       http://mybatis.org/schema/mybatis-spring
+       http://mybatis.org/schema/mybatis-spring.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<!--    a.扫描除了controller包的其他包，都归spring去加载-->
+    <context:component-scan base-package="com.yuyz" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+<!--    b.声明事务-->
+    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+<!--基于注解驱动启动事务-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+<!--基于aop切面管理事务-->
+    <aop:config>
+        <aop:pointcut id="transactionCut" expression="execution(* com.yuyz.service.impl.*.*(..))"/>
+        <aop:advisor advice-ref="advice" pointcut-ref="transactionCut"></aop:advisor>
+    </aop:config>
+    <!--用来明确哪些切点的方法需要用到事务 一次配置，一劳永逸 建议使用-->
+    <tx:advice id="advice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*"/>
+            <tx:method name="update*"/>
+            <tx:method name="delete*"/>
+            <tx:method name="get*" read-only="true" propagation="SUPPORTS"/>
+            <tx:method name="query*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+<!--    sqlsessionFactory-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sessionFactoryBean">
+        <!--指定spring的数据源-->
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:mybatis_config.xml"></property>
+        <property name="mapperLocations" value="classpath:com/yuyz/mapper/*.xml"></property>
+    </bean>
+<!--mapper 接口交给spring管理-->
+    <mybatis:scan base-package="com.yuyz.mapper"></mybatis:scan>
+
+
+    <!--***************************第三方引用******************************************88-->
+    <!--配置第三方引用bean-->
+    <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+    </bean>
+    <!--引入properties文件-->
+    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+    <!--***************************第三方引用******************************************88-->
+</beans>

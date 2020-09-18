@@ -1,0 +1,13 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{100} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--控制细粒度的日志-->
+    <logger name="com.yuyz.mapper" level="trace"></logger>
+    <!--控制所有的日志-->
+    <root level="error">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

@@ -1,0 +1,31 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<!--context 生成上下文 配置生成规则
+     id : 随便命名
+     targetRuntime：生成策略
+                    MyBatis3DynamicSql	默认生成策略，会生成动态CRUD
+                    MyBatis3  生成通用的查询语句，可以指定动态的where条件
+                    MyBatis3Simple 只生成简单的CRUD 以及映射文件等
+  -->
+<!--    <context id="simple" targetRuntime="MyBatis3Simple">-->
+    <context id="simple" targetRuntime="MyBatis3Simple">
+
+    <!--配置数据源-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql:///mybatis"
+                        userId="root"
+                        password="root1234"/>
+        <!--pojo-->
+        <javaModelGenerator targetPackage="com.yuyz.pojo" targetProject="src/main/java"/>
+        <!--mapper XML映射文件-->
+        <sqlMapGenerator targetPackage="com.yuyz.mapper" targetProject="src/main/resources"></sqlMapGenerator>
+        <!--mapper 接口-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yuyz.mapper" targetProject="src/main/java"/>
+        <!--配置哪些表需要进行代码生成-->
+        <table tableName="emp" domainObjectName="Emp" mapperName="EmpMapper" />
+        <table tableName="dept" domainObjectName="Dept" mapperName="DeptMapper" />
+
+    </context>
+</generatorConfiguration>

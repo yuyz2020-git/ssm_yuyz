@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!-- 对包下面所有的 文件适用别名 ，类名作为别名 忽略大小写 还可以单独为包下面的类设置别名 @Alias  -->
+    <typeAliases>
+        <package name="com.yuyz.pojo"/>
+    </typeAliases>
+</configuration>
