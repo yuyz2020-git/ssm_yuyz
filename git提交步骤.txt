@@ -1,0 +1,27 @@
+#基于远程仓库克隆至本地
+git clone <remote_url>
+
+#当前目录初始化为git 本地仓库
+git init  <directory>   ---------
+
+#添加所有
+git add -A  ----------
+
+#添加指定文件至暂存区
+git add <fileName>
+#添加指定目录至暂存区
+git add <directory>
+
+#提交至本地仓库
+git commit file -m '提交评论'
+
+
+#快捷提交至本地仓库
+git commit -am '快添加与提交'  ------
+
+#添加远程地址
+git remote add origin http:xxx.xxx
+
+
+#上传新分支至远程
+git push --set-upstream origin master 
