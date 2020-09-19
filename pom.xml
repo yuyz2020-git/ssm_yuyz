@@ -128,7 +128,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <!--  解决找不到web.xml的问题-->
+            <!--  解决找不到web.xml的问题，jenkins默认走的是springboot的代码结构，web包需要手动指定-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
