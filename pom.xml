@@ -10,6 +10,8 @@
     <packaging>war</packaging>
     <properties>
         <SPRING.VERSION>5.2.6.RELEASE</SPRING.VERSION>
+        <!--解决集成框架找不到web.xml的问题-->
+        <failOnMissingWebXml>false</failOnMissingWebXml>
     </properties>
     <dependencies>
         <!--springmvc-->
