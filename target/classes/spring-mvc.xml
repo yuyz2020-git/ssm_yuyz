@@ -11,7 +11,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 <!--    b.添加<annotitaion-driver>-->
-    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean"/>
+    <mvc:annotation-driven/>
 <!--    c.视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"></property>
@@ -19,13 +19,5 @@
 <!--    d.静态资源解析-->
 <!--    <mvc:resources mapping="" location=""></mvc:resources>-->
     <mvc:default-servlet-handler></mvc:default-servlet-handler>
-    
-    <!--配置自定义类型转换器-->
-    <bean class="org.springframework.context.support.ConversionServiceFactoryBean" id="conversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <bean class="com.yuyz.converters.MyDateToStringConverter" id="myDateToStringConverter"></bean>
-            </set>
-        </property>
-    </bean>
+
 </beans>
